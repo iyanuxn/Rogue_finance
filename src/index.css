@@ -12,7 +12,7 @@
 .mainBg {
   background-image: url(assets/mainBg.svg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: top;
 }
 
@@ -20,6 +20,13 @@
   background-image: url(assets/otherBg.svg);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
+}
+
+.footerBg {
+  background-image: url(assets/footerBg.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
   background-position: center;
 }
 
@@ -32,6 +39,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+}
+
+.glow-top {
+  box-shadow: 0 0px 100px #fff, 0 0 20px #fff, 0 -40px 50px #fff, 0 0 80px #fff;
 }
 
 @keyframes fade-in {

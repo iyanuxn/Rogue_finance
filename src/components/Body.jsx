@@ -3,6 +3,9 @@ import { IoDocumentText } from "react-icons/io5";
 import { BsDiscord } from "react-icons/bs";
 import { PiArrowUpRightThin } from "react-icons/pi";
 import { FiInfo } from "react-icons/fi";
+import { RxTwitterLogo } from "react-icons/rx";
+import { PiMediumLogoFill } from "react-icons/pi";
+import LOGO from "../assets/rogue.svg";
 
 const Body = () => {
   const [myShare, setMyshare] = useState("1%");
@@ -88,7 +91,7 @@ const Body = () => {
             </div>
           ))}
         </div>
-        <div className="flex w-full gap-5 justify-between mt-16">
+        <div className="flex w-full gap-5 justify-between mt-10">
           <div className="flex flex-col justify-center items-center gap-5 w-full">
             <span className="text-neutral-400 flex items-center gap-2">
               My share <FiInfo className="text-white text-xl" />
@@ -114,8 +117,24 @@ const Body = () => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-5 w-full mt-16">
-          <div>Left</div>
+        <div className="grid grid-cols-2 gap-5 w-full mt-10">
+          <div className="p-2 bg-zinc-900 rounded-3xl">
+            <div className="w-full grid grid-cols-2 gap-1 border-2 border-zinc-800 rounded-3xl">
+              <div className="otherBg bg-zinc-800 flex justify-center items-center py-12 rounded-3xl">
+                <span className="font-secondary font-semibold text-2xl">
+                  Deposit
+                </span>
+              </div>
+              <div className="bg-transparent flex justify-center items-center py-12 rounded-3xl">
+                <span className="font-secondary font-semibold text-2xl text-neutral-500">
+                  Withdraw
+                </span>
+              </div>
+            </div>
+            <div>
+              Content1
+            </div>
+          </div>
           <div className="p-2 bg-zinc-900 rounded-3xl">
             <div className="otherBg bg-zinc-800 flex justify-center items-center py-12 rounded-3xl">
               <span className="font-secondary font-semibold text-2xl">FAQ</span>
@@ -152,6 +171,32 @@ const Body = () => {
               ))}
             </div>
           </div>
+        </div>
+        <div className="flex flex-col justify-center items-center">
+          {" "}
+          <img src={LOGO} alt="logo" className="w-6 mt-3" />
+          <div className="bg-white w-20 h-1 mt-5 rounded-full glow-top"></div>
+        </div>
+      </section>
+      <section className="footerBg flex flex-col justify-center items-center gap-5 py-7 px-10 h-96 -mt-16">
+        <span className="text-4xl">Join the Liquis Community!</span>
+        <span className="text-neutral-400 text-center">
+          Our Discord and Twitter are the best places to stay up to date on all
+          of Rogue’s latest developments.
+        </span>
+        <div className="flex">
+          <button className="text-white font-semibold rounded-full text-sm py-3 w-64 justify-center flex gap-2 items-center border border-gray-600 ">
+            <RxTwitterLogo className="text-xl" />
+            <span>Follow on Twitter</span>
+          </button>
+          <button className="text-white font-semibold rounded-full text-sm py-3 w-64 justify-center flex gap-2 items-center border border-gray-600 ">
+            <BsDiscord className="text-xl" />
+            <span>Join our Discord</span>
+          </button>
+          <button className="text-white font-semibold rounded-full text-sm py-3 w-64 justify-center flex gap-2 items-center border border-gray-600 ">
+            <PiMediumLogoFill className="text-xl" />
+            <span>Read more on Medium</span>
+          </button>
         </div>
       </section>
     </div>

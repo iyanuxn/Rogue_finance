@@ -5,6 +5,7 @@ import { PiArrowUpRightThin } from "react-icons/pi";
 import { FiInfo } from "react-icons/fi";
 import { RxTwitterLogo } from "react-icons/rx";
 import { PiMediumLogoFill } from "react-icons/pi";
+import { LiaArrowRightSolid } from "react-icons/lia";
 import LOGO from "../assets/rogue.svg";
 
 const Body = () => {
@@ -13,6 +14,16 @@ const Body = () => {
   const [myStake, setmyStake] = useState("100 MAV");
   const [currentFAQIndex, setCurrentFAQIndex] = useState(null);
   const [activeButton, setActiveButton] = useState("deposit");
+  const [inputValue, setInputValue] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
   const handleButtonClick = (buttonType) => {
     if (buttonType === "deposit") {
@@ -171,24 +182,55 @@ const Body = () => {
 
             <div>
               {activeButton === "deposit" ? (
-                <div className="flex flex-col mb-10 mt-3 ">
-                  <div className="flex flex-col justify-center items-center gap-3 w-full cursor-pointer px-12 py-7">
-                    <span className="font-medium flex justify-between items-center w-full">
-                      Deposit LIT
-                      <div className="rounded-full flex items-center p-2 justify-center border border-white">
-                        <PiArrowUpRightThin className="text-md" />
-                      </div>
-                    </span>
+                <div className="mt-10 flex flex-col gap-7 justify-center items-center px-5">
+                  <div className="w-full flex justify-between items-center">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-sm text-neutral-500">Amount</span>
+                      <input
+                        className="bg-transparent text-white font-semibold font-secondary text-5xl w-full outline-none"
+                        type="number"
+                        placeholder="0.00"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="relative">
+                      <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        onClick={handleDropdownToggle}
+                      >
+                        Dropdown
+                      </button>
+                      {isDropdownOpen && (
+                        <div className="absolute right-0 mt-2 w-40 bg-white text-black border border-gray-300 rounded-md shadow-lg">
+                          <ul className="py-2">
+                            <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
+                              Option 1
+                            </li>
+                            <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
+                              Option 2
+                            </li>
+                            <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
+                              Option 3
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                    </div>
                   </div>
+
+                  <button className="bg-white text-zinc-900 font-semibold rounded-xl text-sm py-3 w-full flex gap-2 items-center">
+                    <div className="w-11/12">
+                      <span className="ml-12"> Deposit MAV</span>
+                    </div>
+                    <LiaArrowRightSolid className="text-xl" />
+                  </button>
                 </div>
               ) : (
                 <div className="flex flex-col mb-10 mt-3 ">
                   <div className="flex flex-col justify-center items-center gap-3 w-full cursor-pointer px-12 py-7">
                     <span className="font-medium flex justify-between items-center w-full">
                       Withdraw LIT
-                      <div className="rounded-full flex items-center p-2 justify-center border border-white">
-                        <PiArrowUpRightThin className="text-md" />
-                      </div>
                     </span>
                   </div>
                 </div>
@@ -207,7 +249,7 @@ const Body = () => {
             >
               {FAQs.map((data, index) => (
                 <div
-                  className={`flex flex-col justify-center items-center gap- w-full cursor-pointer px-12 ${
+                  className={`flex flex-col justify-center items-center gap-2 w-full cursor-pointer px-12 ${
                     index !== FAQs.length - 1
                       ? "border-b border-neutral-800"
                       : ""
@@ -219,7 +261,7 @@ const Body = () => {
                     {data.question}
                     <div className="rounded-full flex items-center p-2 justify-center border border-white">
                       <PiArrowUpRightThin
-                        className={`text-md transition-all duration-300 ease-in-out ${
+                        className={`text-sm transition-all duration-300 ease-in-out ${
                           currentFAQIndex === index ? "transform rotate-90" : ""
                         }`}
                       />
@@ -239,11 +281,11 @@ const Body = () => {
         </div>
         <div className="flex flex-col justify-center items-center">
           {" "}
-          <img src={LOGO} alt="logo" className="w-6 mt-12" />
+          <img src={LOGO} alt="logo" className="w-6 mt-7" />
           <div className="bg-white w-20 h-1 mt-5 rounded-full glow-top"></div>
         </div>
       </section>
-      <section className="footerBg flex flex-col justify-center items-center gap-5 py-7 px-10 h-96 -mt-10">
+      <section className="footerBg flex flex-col justify-center items-center gap-5 py-7 px-10 h-96 -mt-12">
         <span className="text-4xl">Join the Liquis Community!</span>
         <span className="text-neutral-400 text-center">
           Our Discord and Twitter are the best places to stay up to date on all

@@ -12,6 +12,15 @@ const Body = () => {
   const [totalStaked, setTotalStaked] = useState("10K MAV");
   const [myStake, setmyStake] = useState("100 MAV");
   const [currentFAQIndex, setCurrentFAQIndex] = useState(null);
+  const [activeButton, setActiveButton] = useState("deposit");
+
+  const handleButtonClick = (buttonType) => {
+    if (buttonType === "deposit") {
+      setActiveButton("deposit");
+    } else if (buttonType === "withdraw") {
+      setActiveButton("withdraw");
+    }
+  };
 
   const weeksData = [
     {
@@ -117,24 +126,69 @@ const Body = () => {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-5 w-full mt-10">
+        <div className="grid grid-cols-2 w-full gap-5 mt-10">
           <div className="p-2 bg-zinc-900 rounded-3xl">
             <div className="w-full grid grid-cols-2 gap-1 border-2 border-zinc-800 rounded-3xl">
-              <div className="otherBg bg-zinc-800 flex justify-center items-center py-12 rounded-3xl">
-                <span className="font-secondary font-semibold text-2xl">
+              <div
+                className={`${
+                  activeButton === "deposit"
+                    ? "otherBg bg-zinc-800"
+                    : "bg-transparent"
+                } flex justify-center items-center rounded-3xl`}
+              >
+                <button
+                  className={`font-secondary w-full py-12 font-semibold text-2xl ${
+                    activeButton === "deposit" ? "" : "text-neutral-500"
+                  }`}
+                  onClick={() => handleButtonClick("deposit")}
+                >
                   Deposit
-                </span>
+                </button>
               </div>
-              <div className="bg-transparent flex justify-center items-center py-12 rounded-3xl">
-                <span className="font-secondary font-semibold text-2xl text-neutral-500">
+              <div
+                className={`${
+                  activeButton === "withdraw"
+                    ? "otherBg bg-zinc-800"
+                    : "bg-transparent"
+                } flex  justify-center items-center rounded-3xl`}
+              >
+                <button
+                  className={`font-secondary w-full py-12 font-semibold text-2xl ${
+                    activeButton === "withdraw" ? "" : "text-neutral-500"
+                  }`}
+                  onClick={() => handleButtonClick("withdraw")}
+                >
                   Withdraw
-                </span>
+                </button>
               </div>
             </div>
             <div>
-              Content1
+              {activeButton === "deposit" ? (
+                <div className="flex flex-col mb-10 mt-3 ">
+                  <div className="flex flex-col justify-center items-center gap-3 w-full cursor-pointer px-12 py-7">
+                    <span className="font-medium flex justify-between items-center w-full">
+                      Deposit LIT
+                      <div className="rounded-full flex items-center p-2 justify-center border border-white">
+                        <PiArrowUpRightThin className="text-md" />
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col mb-10 mt-3 ">
+                  <div className="flex flex-col justify-center items-center gap-3 w-full cursor-pointer px-12 py-7">
+                    <span className="font-medium flex justify-between items-center w-full">
+                      Withdraw LIT
+                      <div className="rounded-full flex items-center p-2 justify-center border border-white">
+                        <PiArrowUpRightThin className="text-md" />
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
+
           <div className="p-2 bg-zinc-900 rounded-3xl">
             <div className="otherBg bg-zinc-800 flex justify-center items-center py-12 rounded-3xl">
               <span className="font-secondary font-semibold text-2xl">FAQ</span>

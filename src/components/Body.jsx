@@ -134,7 +134,7 @@ const Body = () => {
                   activeButton === "deposit"
                     ? "otherBg bg-zinc-800"
                     : "bg-transparent"
-                } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out1`}
+                } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out`}
               >
                 <button
                   className={`font-secondary w-full py-12 font-semibold text-2xl ${
@@ -153,7 +153,7 @@ const Body = () => {
                   activeButton === "withdraw"
                     ? "otherBg bg-zinc-800"
                     : "bg-transparent"
-                } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out1`}
+                } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out`}
               >
                 <button
                   className={`font-secondary w-full py-12 font-semibold text-2xl ${
@@ -197,13 +197,17 @@ const Body = () => {
           </div>
 
           <div className="p-2 bg-zinc-900 rounded-3xl">
-            <div className="otherBg bg-zinc-800 flex justify-center items-center py-12 rounded-3xl">
+            <div className="otherBg bg-zinc-800 flex justify-center items-center py-12 rounded-t-3xl">
               <span className="font-secondary font-semibold text-2xl">FAQ</span>
             </div>
-            <div className="flex flex-col mb-10 mt-3 ">
+            <div
+              className={`flex flex-col mb-10 mt-3 w-full ${
+                currentFAQIndex !== null ? "max-h-[50vh] scroll" : ""
+              }`}
+            >
               {FAQs.map((data, index) => (
                 <div
-                  className={`flex flex-col justify-center items-center gap-3 w-full cursor-pointer px-12 ${
+                  className={`flex flex-col justify-center items-center gap- w-full cursor-pointer px-12 ${
                     index !== FAQs.length - 1
                       ? "border-b border-neutral-800"
                       : ""
@@ -235,11 +239,11 @@ const Body = () => {
         </div>
         <div className="flex flex-col justify-center items-center">
           {" "}
-          <img src={LOGO} alt="logo" className="w-6 mt-3" />
+          <img src={LOGO} alt="logo" className="w-6 mt-12" />
           <div className="bg-white w-20 h-1 mt-5 rounded-full glow-top"></div>
         </div>
       </section>
-      <section className="footerBg flex flex-col justify-center items-center gap-5 py-7 px-10 h-96 -mt-16">
+      <section className="footerBg flex flex-col justify-center items-center gap-5 py-7 px-10 h-96 -mt-10">
         <span className="text-4xl">Join the Liquis Community!</span>
         <span className="text-neutral-400 text-center">
           Our Discord and Twitter are the best places to stay up to date on all

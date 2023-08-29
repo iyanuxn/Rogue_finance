@@ -134,7 +134,7 @@ const Body = () => {
                   activeButton === "deposit"
                     ? "otherBg bg-zinc-800"
                     : "bg-transparent"
-                } flex justify-center items-center rounded-3xl`}
+                } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out1`}
               >
                 <button
                   className={`font-secondary w-full py-12 font-semibold text-2xl ${
@@ -144,13 +144,16 @@ const Body = () => {
                 >
                   Deposit
                 </button>
+                {activeButton === "deposit" && (
+                  <div className="bg-white w-40 h-1 rounded-full glow-top"></div>
+                )}
               </div>
               <div
                 className={`${
                   activeButton === "withdraw"
                     ? "otherBg bg-zinc-800"
                     : "bg-transparent"
-                } flex  justify-center items-center rounded-3xl`}
+                } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out1`}
               >
                 <button
                   className={`font-secondary w-full py-12 font-semibold text-2xl ${
@@ -160,8 +163,12 @@ const Body = () => {
                 >
                   Withdraw
                 </button>
+                {activeButton === "withdraw" && (
+                  <div className="bg-white w-40 h-1 rounded-full glow-top"></div>
+                )}
               </div>
             </div>
+
             <div>
               {activeButton === "deposit" ? (
                 <div className="flex flex-col mb-10 mt-3 ">

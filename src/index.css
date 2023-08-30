@@ -5,7 +5,7 @@
 .hexBg {
   background-image: url(assets/hexBg.svg);
   background-repeat: no-repeat;
-  background-size: 75%;
+  background-size: contain;
   background-position: top;
 }
 
@@ -101,5 +101,21 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hexBg {
+    background-size: 140%;
+  }
+
+  .slider::-webkit-slider-thumb {
+    width: 4vw;
+    height: 4vw;
+    border: 1px;
+  }
+
+  .footerBg {
+    background: linear-gradient(180deg, #262b3c 0%, rgba(0, 0, 0, 0) 100%);
   }
 }

@@ -26,7 +26,7 @@
 .footerBg {
   background-image: url(assets/footerBg.svg);
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 99%, contain;
   background-position: center;
 }
 

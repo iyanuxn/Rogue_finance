@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoDocumentText } from "react-icons/io5";
 import { BsDiscord } from "react-icons/bs";
-import { PiArrowUpRightThin } from "react-icons/pi";
+import { PiCaretDown } from "react-icons/pi";
 import { FiInfo } from "react-icons/fi";
 import { RxTwitterLogo } from "react-icons/rx";
 import { PiMediumLogoFill, PiGearBold } from "react-icons/pi";
@@ -197,7 +197,7 @@ const Body = () => {
           </div>
         </div>
         <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-5 mt-10">
-          <div className="md:p-2 bg-zinc-900 rounded-3xl h-full">
+          <div className="md:p-1 bg-zinc-900 rounded-3xl h-full">
             <div className="w-full grid grid-cols-2 gap-1 border-2 border-zinc-800 rounded-xl md:rounded-3xl">
               <div
                 className={`${
@@ -355,7 +355,7 @@ const Body = () => {
                     ))}
                   </div>
 
-                  <div className="flex flex-col justify-start items-start w-full border-t border-neutral-800 pt-5 md:pt-9 bp-2 md:pb-4 mt-6">
+                  <div className="flex flex-col justify-start items-start w-full border-t border-neutral-800 pt-5 md:pt-4 pb-2 md:pb-2 mt-6">
                     <div className="flex justify-between w-full">
                       <span className="text-neutral-500 md:text-base text-sm">
                         Estimated Fee
@@ -374,7 +374,7 @@ const Body = () => {
                     </div>
                   </div>
 
-                  <button className="bg-white text-zinc-900 font-semibold rounded-xl text-sm py-3 w-full flex gap-2 items-center mt-5 hover:bg-zinc-200 transition-all duration-300 ease-in-out">
+                  <button className="bg-white text-zinc-900 font-semibold rounded-xl text-sm py-3 w-full flex gap-2 items-center mt-3 hover:bg-zinc-200 transition-all duration-300 ease-in-out">
                     <div className="md:w-11/12 w-5/6">
                       <span className="ml-12"> Deposit MAV</span>
                     </div>
@@ -393,7 +393,7 @@ const Body = () => {
             </div>
           </div>
 
-          <div className="p-2 bg-zinc-900 rounded-3xl">
+          <div className="md:p-1 md:mt-0 mt-10 bg-zinc-900 rounded-3xl">
             <div className="otherBg bg-zinc-800 flex justify-center items-center h-20 md:h-32 rounded-xl md:rounded-3xl">
               <span className="font-secondary font-semibold text-lg md:text-2xl">
                 FAQ
@@ -402,7 +402,7 @@ const Body = () => {
             <div
               className={`flex flex-col mb-10 mt-2 md:mt-3 w-full ${
                 currentFAQIndex !== null
-                  ? "max-h-[70vh] md:max-h-[53vh] scroll"
+                  ? "max-h-[70vh] md:max-h-[48vh] scroll"
                   : ""
               }`}
             >
@@ -418,13 +418,11 @@ const Body = () => {
                 >
                   <span className="font-medium flex justify-between gap-2 items-center w-full md:text-base text-sm">
                     {data.question}
-                    <div className="rounded-full flex items-center p-2 justify-center border border-white">
-                      <PiArrowUpRightThin
-                        className={`md:text-sm text-xs transition-all duration-300 ease-in-out ${
-                          currentFAQIndex === index ? "transform rotate-90" : ""
-                        }`}
-                      />
-                    </div>
+                    <PiCaretDown
+                      className={`md:text-lg text-sm transition-all duration-300 ease-in-out ${
+                        currentFAQIndex === index ? "transform rotate-180" : ""
+                      }`}
+                    />
                   </span>
                   <span
                     className={`text-neutral-500 text-xs md:text-sm ${
@@ -444,7 +442,7 @@ const Body = () => {
         </div>
       </section>
 
-      <section className="footerBg flex flex-col justify-center items-center gap-2 md:gap-5 py-8 px-5 md:px-10 h-auto md:h-96 md:-mt-16 md:rounded-none rounded-t-3xl">
+      <section className="footerBg flex flex-col justify-center items-center gap-2 md:gap-5 py-8 px-5 md:px-10 h-auto md:h-96 md:-mt-[3vw] md:rounded-none rounded-t-3xl">
         <span className="text-xl md:text-4xl text-center">
           Join the Liquis Community!
         </span>

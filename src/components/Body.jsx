@@ -22,6 +22,27 @@ const Body = () => {
   const [availableBal, setAvailableBal] = useState(0.0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("MAV");
+  const [range, setRange] = useState(1);
+  const [estimatedFee, setEstimatedFee] = useState(null);
+  const [rMAV, setrMAV] = useState(null);
+
+  const handleTextClick = (value) => {
+    setRange(value);
+  };
+
+  const handleLineClick = (index) => {
+    setRange(index);
+  };
+
+  const sliderStyles = {
+    backgroundImage: `linear-gradient(to right, #1A82C5 ${
+      range === 1 ? 0 : (range - 1) * 25
+    }%, #27272a ${(range - 1) * 25}%, #27272a ${100 - (range - 1) * 25}%)`,
+  };
+
+  const handleSliderChange = (event) => {
+    setRange(event.target.value);
+  };
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
@@ -102,6 +123,14 @@ const Body = () => {
     },
   ];
 
+  const textLabels = [
+    { label: "Min", value: 1 },
+    { label: "25%", value: 2 },
+    { label: "50%", value: 3 },
+    { label: "75%", value: 4 },
+    { label: "100%", value: 5 },
+  ];
+
   return (
     <div>
       <section className="hexBg flex flex-col justify-center items-center gap-5 p-40">
@@ -124,8 +153,8 @@ const Body = () => {
       <section className="mainBg flex flex-col justify-center items-center gap-5 py-7 px-10">
         <span className="font-bold text-xl">Join us !</span>
         <div className="grid grid-cols-4 gap-5 w-full mt-10">
-          {weeksData.map((data) => (
-            <div className="flex flex-col justify-center w-full">
+          {weeksData.map((data, index) => (
+            <div key={index} className="flex flex-col justify-center w-full">
               <div className="bg-gradient-to-r from-blue-600 from-1% to-indigo-500 to-90% flex justify-center items-center py-2 rounded-t-3xl w-4/6">
                 <span>{data.week}</span>
               </div>
@@ -162,7 +191,7 @@ const Body = () => {
           </div>
         </div>
         <div className="grid grid-cols-2 w-full gap-5 mt-10">
-          <div className="p-2 bg-zinc-900 rounded-3xl">
+          <div className="p-2 bg-zinc-900 rounded-3xl h-full">
             <div className="w-full grid grid-cols-2 gap-1 border-2 border-zinc-800 rounded-3xl">
               <div
                 className={`${
@@ -172,7 +201,7 @@ const Body = () => {
                 } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out`}
               >
                 <button
-                  className={`font-secondary w-full py-12 font-semibold text-2xl ${
+                  className={`font-secondary w-full h-28 font-semibold text-2xl ${
                     activeButton === "deposit" ? "" : "text-neutral-500"
                   }`}
                   onClick={() => handleButtonClick("deposit")}
@@ -191,7 +220,7 @@ const Body = () => {
                 } flex flex-col justify-center items-center rounded-3xl transition-all duration-300 ease-in-out`}
               >
                 <button
-                  className={`font-secondary w-full py-12 font-semibold text-2xl ${
+                  className={`font-secondary w-full h-28 font-semibold text-2xl ${
                     activeButton === "withdraw" ? "" : "text-neutral-500"
                   }`}
                   onClick={() => handleButtonClick("withdraw")}
@@ -206,12 +235,12 @@ const Body = () => {
 
             <div>
               {activeButton === "deposit" ? (
-                <div className="mt-10 flex flex-col gap-3 justify-center items-center px-5">
+                <div className="mt-8 flex flex-col gap-1 justify-center items-center px-5">
                   <div className="w-full flex justify-between items-center">
                     <div className="flex flex-col gap-1">
                       <span className="text-sm text-neutral-500">Amount</span>
                       <input
-                        className="bg-transparent text-white font-semibold font-secondary text-5xl w-full outline-none"
+                        className="bg-transparent text-white font-semibold font-secondary text-4xl w-full outline-none"
                         type="number"
                         placeholder="0.00"
                         value={inputValue}
@@ -220,7 +249,7 @@ const Body = () => {
                     </div>
                     <div className="relative">
                       <button
-                        className="bg-zinc-800 text-white font-semibold rounded-xl py-3 w-60 flex justify-center items-center px-4"
+                        className="bg-zinc-800 text-white font-semibold rounded-xl py-2 w-60 flex justify-center items-center px-4"
                         onClick={handleDropdownToggle}
                       >
                         <div className="flex gap-5 items-center w-full">
@@ -251,7 +280,7 @@ const Body = () => {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex justify-between items-center w-full">
                     <span className="text-md">
                       = $ {inputUSD.toFixed(2)} ( USD )
@@ -267,7 +296,65 @@ const Body = () => {
                     </div>
                   </div>
 
-                  <button className="bg-white text-zinc-900 font-semibold rounded-xl text-sm py-3 w-full flex gap-2 items-center mt-10">
+                  <div className="w-full mt-8 relative flex">
+                    <input
+                      type="range"
+                      min="1"
+                      max="5"
+                      step="1"
+                      value={range}
+                      className="slider w-full rounded-full transition-all duration-300 ease-in-out z-0 cursor-pointer"
+                      style={sliderStyles}
+                      onChange={handleSliderChange}
+                    />
+
+                    <div className="absolute flex justify-between w-full top-1/2 transform -translate-y-1/2">
+                      {[1, 2, 3, 4, 5].map((data, index) => (
+                        <div
+                          className="z-20 flex justify-center w-8"
+                          key={index}
+                          onClick={() => handleLineClick(data)}
+                        >
+                          <div
+                            className={`w-1 h-[0.8vw] rounded-full bg-white cursor-pointer ${
+                              index >= range ? "" : "hidden"
+                            }`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between w-full mt-2">
+                    {textLabels.map(({ label, value }) => (
+                      <div
+                        key={value}
+                        className={`text-xs cursor-pointer transition-all duration-300 ease-in-out ${
+                          value === range ? "text-white" : "text-gray-600"
+                        }`}
+                        onClick={() => handleTextClick(value)}
+                      >
+                        {label}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col justify-start items-start w-full border-t border-neutral-800 pt-9 pb-4 mt-6">
+                    <div className="flex justify-between w-full">
+                      <span className="text-neutral-500">Estimated Fee</span>
+                      <span className="text-lg">
+                        {estimatedFee === null ? "-" : estimatedFee}
+                      </span>
+                    </div>
+                    <div className="flex justify-between w-full">
+                      <span className="text-neutral-500">rMAV received</span>
+                      <span className="text-lg">
+                        {rMAV === null ? "-" : rMAV}
+                      </span>
+                    </div>
+                  </div>
+
+                  <button className="bg-white text-zinc-900 font-semibold rounded-xl text-sm py-3 w-full flex gap-2 items-center mt-5">
                     <div className="w-11/12">
                       <span className="ml-12"> Deposit MAV</span>
                     </div>
@@ -287,12 +374,12 @@ const Body = () => {
           </div>
 
           <div className="p-2 bg-zinc-900 rounded-3xl">
-            <div className="otherBg bg-zinc-800 flex justify-center items-center py-12 rounded-t-3xl">
+            <div className="otherBg bg-zinc-800 flex justify-center items-center h-32 rounded-3xl">
               <span className="font-secondary font-semibold text-2xl">FAQ</span>
             </div>
             <div
               className={`flex flex-col mb-10 mt-3 w-full ${
-                currentFAQIndex !== null ? "max-h-[50vh] scroll" : ""
+                currentFAQIndex !== null ? "max-h-[53vh] scroll" : ""
               }`}
             >
               {FAQs.map((data, index) => (

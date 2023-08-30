@@ -4,18 +4,29 @@ import { BsDiscord } from "react-icons/bs";
 import { PiArrowUpRightThin } from "react-icons/pi";
 import { FiInfo } from "react-icons/fi";
 import { RxTwitterLogo } from "react-icons/rx";
-import { PiMediumLogoFill } from "react-icons/pi";
+import { PiMediumLogoFill, PiGearBold } from "react-icons/pi";
 import { LiaArrowRightSolid } from "react-icons/lia";
+import { AiOutlineCaretDown } from "react-icons/ai";
+import MAV from "../assets/MAV.svg";
+
 import LOGO from "../assets/rogue.svg";
 
 const Body = () => {
-  const [myShare, setMyshare] = useState("1%");
-  const [totalStaked, setTotalStaked] = useState("10K MAV");
-  const [myStake, setmyStake] = useState("100 MAV");
+  const [myShare, setMyshare] = useState(1);
+  const [totalStaked, setTotalStaked] = useState(10);
+  const [myStake, setmyStake] = useState(100);
   const [currentFAQIndex, setCurrentFAQIndex] = useState(null);
   const [activeButton, setActiveButton] = useState("deposit");
   const [inputValue, setInputValue] = useState("");
+  const [inputUSD, setInputUSD] = useState(0.0);
+  const [availableBal, setAvailableBal] = useState(0.0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("MAV");
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+    handleDropdownToggle();
+  };
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -30,6 +41,14 @@ const Body = () => {
       setActiveButton("deposit");
     } else if (buttonType === "withdraw") {
       setActiveButton("withdraw");
+    }
+  };
+
+  const toggleFAQ = (index) => {
+    if (currentFAQIndex === index) {
+      setCurrentFAQIndex(null);
+    } else {
+      setCurrentFAQIndex(index);
     }
   };
 
@@ -70,13 +89,18 @@ const Body = () => {
     },
   ];
 
-  const toggleFAQ = (index) => {
-    if (currentFAQIndex === index) {
-      setCurrentFAQIndex(null);
-    } else {
-      setCurrentFAQIndex(index);
-    }
-  };
+  const options = [
+    {
+      name: "MAV",
+      value: "MAV",
+      img: MAV,
+    },
+    {
+      name: "NOT MAV",
+      value: "NOT MAV",
+      img: MAV,
+    },
+  ];
 
   return (
     <div>
@@ -117,7 +141,7 @@ const Body = () => {
               My share <FiInfo className="text-white text-xl" />
             </span>
             <span className="font-secondary font-semibold text-5xl">
-              {myShare}
+              {myShare}%
             </span>
           </div>
           <div className="flex flex-col justify-center items-center gap-5 w-full border-r-2 border-l-2 border-neutral-700">
@@ -125,7 +149,7 @@ const Body = () => {
               Total Staked <FiInfo className="text-white text-xl" />
             </span>
             <span className="font-secondary font-semibold text-5xl">
-              {totalStaked}
+              {totalStaked}K MAV
             </span>
           </div>{" "}
           <div className="flex flex-col justify-center items-center gap-5 w-full">
@@ -133,7 +157,7 @@ const Body = () => {
               My Stake <FiInfo className="text-white text-xl" />
             </span>
             <span className="font-secondary font-semibold text-5xl">
-              {myStake}
+              {myStake} MAV
             </span>
           </div>
         </div>
@@ -182,7 +206,7 @@ const Body = () => {
 
             <div>
               {activeButton === "deposit" ? (
-                <div className="mt-10 flex flex-col gap-7 justify-center items-center px-5">
+                <div className="mt-10 flex flex-col gap-3 justify-center items-center px-5">
                   <div className="w-full flex justify-between items-center">
                     <div className="flex flex-col gap-1">
                       <span className="text-sm text-neutral-500">Amount</span>
@@ -196,30 +220,54 @@ const Body = () => {
                     </div>
                     <div className="relative">
                       <button
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        className="bg-zinc-800 text-white font-semibold rounded-xl py-3 w-60 flex justify-center items-center px-4"
                         onClick={handleDropdownToggle}
                       >
-                        Dropdown
+                        <div className="flex gap-5 items-center w-full">
+                          <img src={MAV} alt="mav" className="w-8" />
+                          <span className="text-md">{selectedOption}</span>
+                        </div>
+                        <AiOutlineCaretDown
+                          className={`transition-all duration-300 ease-in-out    ${
+                            isDropdownOpen ? "transform rotate-180" : ""
+                          }`}
+                        />
                       </button>
                       {isDropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-40 bg-white text-black border border-gray-300 rounded-md shadow-lg">
-                          <ul className="py-2">
-                            <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
-                              Option 1
-                            </li>
-                            <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
-                              Option 2
-                            </li>
-                            <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
-                              Option 3
-                            </li>
-                          </ul>
+                        <div className="absolute right-0 mt-2 w-full bg-zinc-800 text-white rounded-xl shadow-lg fade-in">
+                          {options.map((option, index) => (
+                            <div
+                              key={index}
+                              className="hover:bg-zinc-900 px-4 py-3 cursor-pointer flex gap-5 items-center transition-all duration-300 ease-in-out"
+                              onClick={() => {
+                                handleOptionSelect(option.name);
+                              }}
+                            >
+                              <img src={option.img} alt="mav" className="w-8" />
+                              {option.name}
+                            </div>
+                          ))}
                         </div>
                       )}
                     </div>
                   </div>
+                  
+                  <div className="flex justify-between items-center w-full">
+                    <span className="text-md">
+                      = $ {inputUSD.toFixed(2)} ( USD )
+                    </span>
 
-                  <button className="bg-white text-zinc-900 font-semibold rounded-xl text-sm py-3 w-full flex gap-2 items-center">
+                    <div className="flex gap-2 items-center">
+                      <span className="text-neutral-500 text-md">
+                        ( Available Balance: {availableBal.toFixed(2)} )
+                      </span>
+                      <button>
+                        <PiGearBold className="text-2xl" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <button className="bg-white text-zinc-900 font-semibold rounded-xl text-sm py-3 w-full flex gap-2 items-center mt-10">
                     <div className="w-11/12">
                       <span className="ml-12"> Deposit MAV</span>
                     </div>
